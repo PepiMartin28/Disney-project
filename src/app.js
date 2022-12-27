@@ -1,18 +1,11 @@
 import express from "express";
-import { sequelize } from "./database/database.js";
 
 const app = express();
 
+import authRoutes from "./routes/auth.routes.js";
+
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
+app.use("/auth", authRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-try {
-  await sequelize.sync({ force: false });
-} catch (error) {
-  console.error(`Unable to connect to the database. Error: ${error}.`);
-}
+export default app;
